@@ -1,0 +1,9 @@
+﻿
+FullName                                          Length
+--------                                          ------
+E:\OpenCode\Game_01\dist\assets                         
+E:\OpenCode\Game_01\dist\index.html               1832  
+E:\OpenCode\Game_01\dist\manifest.json            288   
+E:\OpenCode\Game_01\dist\assets\index-_CM00hC8.js 15036 
+
+
