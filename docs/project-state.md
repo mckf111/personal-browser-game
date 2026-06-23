@@ -5,8 +5,8 @@
 ## 当前状态
 
 - 项目：守序者与闯入者
-- 阶段：publish-ready（发布就绪，等待用户凭证）
-- 当前目标：T10 实际发布（blocked，等待用户提供 GitHub 仓库 + gh auth + itch.io 账号）
+- 阶段：**published**（GitHub Pages 已上线，itch.io 待上传）
+- 当前目标：项目已可玩，等待用户 itch.io 上传
 - 最近一次更新：2026-06-23
 - 当前维护者 / 决策人：用户
 
@@ -29,10 +29,15 @@
 - 构建产物：dist/index.html + manifest.json + assets/index-xxx.js
 - 路径扫描：无绝对路径引用 ✅
 
+## 已完成（T10）
+
+- GitHub Pages 已发布：https://mckf111.github.io/personal-browser-game/
+- GitHub Actions 自动部署成功
+- Playwright 远程验证通过
+
 ## 待办
 
-- T10：实际发布（需用户提供 GitHub 仓库 URL + gh auth + itch.io 账号）
-  - 当前状态：blocked，详见 .omo/evidence/task-10-blocked.md
+- itch.io 手动上传（按 docs/publish-itchio.md 步骤）
   - publish-ready 包：.omo/evidence/task-9-dist.zip
 
 ## 技术栈
@@ -70,4 +75,5 @@ specs/active/
 - `.omo/` 目录含规划与审查证据，不要删除
 - 宪法骨架已装入，AGENTS.md 为最高规则源
 - 运行 `npx vite` 即可本地试玩
-- T10 发布需用户提供凭证，当前为 blocked 状态
+- 线上版本：https://mckf111.github.io/personal-browser-game/
+- itch.io 待上传：按 docs/publish-itchio.md 步骤，使用 .omo/evidence/task-9-dist.zip
