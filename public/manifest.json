@@ -1,0 +1,15 @@
+{
+  "name": "守序者与闯入者",
+  "short_name": "守序闯入",
+  "start_url": "./",
+  "display": "fullscreen",
+  "background_color": "#1a1a2e",
+  "theme_color": "#2c3e50",
+  "icons": [
+    {
+      "src": "./vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

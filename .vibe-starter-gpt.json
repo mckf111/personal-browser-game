@@ -1,0 +1,11 @@
+{
+  "constitution": "vibe-starter-GPT",
+  "constitutionVersion": "draft-2026-05-16",
+  "installedOn": "2026-06-23",
+  "projectName": "守序者与闯入者",
+  "projectType": "web-game",
+  "primaryArtifact": "可在线玩的 HTML5 游戏",
+  "defaultBranch": "main",
+  "constitutionSHA": "12ae3d5090481ca83d8ede1cab2d0d7c71028ecd",
+  "notes": "单键时机浏览器小游戏，原生 Canvas+JS+Vite。宪法只补缺失不覆盖现有，.omo/ 与 .codegraph/ 已保留。"
+}
