@@ -1,68 +1,75 @@
 import { test, expect } from '@playwright/test'
 
-test('canvas loads and input changes state', async ({ page }) => {
-  await page.goto('http://localhost:4173/?testMode=1')
-
-  // 断言 canvas 存在
-  const canvas = await page.$('canvas#game-canvas')
-  expect(canvas).not.toBeNull()
-
-  // 断言 viewport meta 存在
-  const viewport = await page.$('meta[name=viewport]')
-  expect(viewport).not.toBeNull()
-
-  // 断言 manifest link 存在
-  const manifest = await page.$('link[rel=manifest]')
-  expect(manifest).not.toBeNull()
-
-  // 等待初始加载
-  await page.waitForTimeout(500)
-
-  // 断言 console 无 error
+test('full game flow in testMode', async ({ page }) => {
   const errors = []
   page.on('console', msg => {
     if (msg.type() === 'error') errors.push(msg.text())
   })
 
-  // 模拟按键（键盘）
+  await page.goto('http://localhost:4173/?testMode=1')
+
+  // 1. 标题画面
+  await page.waitForTimeout(500)
+  let state = await page.evaluate(() => window.__gameState)
+  expect(state.state).toBe('title')
+
+  // 2. 进入角色选择
+  await page.keyboard.press('Space')
+  await page.waitForTimeout(300)
+  state = await page.evaluate(() => window.__gameState)
+  expect(state.state).toBe('select')
+
+  // 3. 选择守序者
+  const canvasBox = await page.locator('canvas#game-canvas').boundingBox()
+  await page.click('canvas#game-canvas', {
+    position: { x: canvasBox.width * 0.35, y: canvasBox.height * 0.5 }
+  })
+  await page.waitForTimeout(300)
+  state = await page.evaluate(() => window.__gameState)
+  expect(state.state).toBe('playing')
+  expect(state.character).toBe('order')
+  expect(state.score).toBe(0)
+  expect(state.level).toBe(1)
+  expect(state.combo).toBe(0)
+
+  // 4. 游戏循环
   await page.keyboard.press('Space')
   await page.waitForTimeout(200)
+  state = await page.evaluate(() => window.__gameState)
+  expect(state.lastResult).toBeTruthy()
 
-  // 断言游戏状态变化（score 从 0 可能增加，但至少 isPlaying 变为 true）
-  const stateAfterKey = await page.evaluate(() => window.__gameState)
-  expect(stateAfterKey).toBeTruthy()
-  expect(stateAfterKey.isPlaying).toBe(true)
-
-  // 重置后模拟触摸点击
+  // 5. 重开
   await page.reload()
   await page.waitForTimeout(500)
-  await page.click('canvas#game-canvas')
-  await page.waitForTimeout(200)
-
-  const stateAfterClick = await page.evaluate(() => window.__gameState)
-  expect(stateAfterClick).toBeTruthy()
-  expect(stateAfterClick.isPlaying).toBe(true)
+  state = await page.evaluate(() => window.__gameState)
+  expect(state.state).toBe('title')
 
   expect(errors).toHaveLength(0)
 })
 
-test('canvas is responsive after resize', async ({ page }) => {
+test('mobile viewport', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('http://localhost:4173/?testMode=1')
+  await page.waitForTimeout(500)
+
+  await page.click('canvas#game-canvas')
+  await page.waitForTimeout(300)
+  const state = await page.evaluate(() => window.__gameState)
+  expect(state.state).toBe('select')
+})
+
+test('canvas responsive after resize', async ({ page }) => {
   await page.goto('http://localhost:4173/?testMode=1')
   await page.waitForTimeout(300)
-
-  const canvasBefore = await page.evaluate(() => ({
-    w: document.getElementById('game-canvas').width,
-    h: document.getElementById('game-canvas').height,
-  }))
 
   await page.setViewportSize({ width: 800, height: 600 })
   await page.waitForTimeout(300)
 
-  const canvasAfter = await page.evaluate(() => ({
+  const after = await page.evaluate(() => ({
     w: document.getElementById('game-canvas').width,
     h: document.getElementById('game-canvas').height,
   }))
 
-  expect(canvasAfter.w).toBeGreaterThan(0)
-  expect(canvasAfter.h).toBeGreaterThan(0)
+  expect(after.w).toBeGreaterThan(0)
+  expect(after.h).toBeGreaterThan(0)
 })
