@@ -5,10 +5,11 @@
 ## 当前状态
 
 - 项目：守序者与闯入者
-- 阶段：**published**（GitHub Pages 已上线，itch.io 待上传）
-- 当前目标：项目已可玩，等待用户 itch.io 上传
+- 阶段：**quality rescue**（GitHub Pages 已上线原型，但未通过质量门禁）
+- 当前目标：执行 `.omo/plans/game-quality-rescue.md` 质量救援计划，修复视觉、叙事、手感和验收标准
 - 最近一次更新：2026-06-23
 - 当前维护者 / 决策人：用户
+- 重要：用户已明确拒绝当前执行质量，项目不再被视为 publish-ready / finished
 
 ## 已完成
 
@@ -37,8 +38,10 @@
 
 ## 待办
 
-- itch.io 手动上传（按 docs/publish-itchio.md 步骤）
-  - publish-ready 包：.omo/evidence/task-9-dist.zip
+- 执行质量救援计划 `.omo/plans/game-quality-rescue.md`（已获批，等待执行）
+  - 包含：状态修正、DESIGN.md、确定性 testMode、截图 QA、可读角色/故事 Canvas、编排节拍、PWA 身份清理、真人玩测门禁、最终质量认证
+- itch.io 手动上传（质量救援通过后再考虑；当前不视为 publish-ready）
+  - publish-ready 包：.omo/evidence/task-9-dist.zip（旧包，救援后需重新打包）
 
 ## 技术栈
 
@@ -73,7 +76,8 @@ specs/active/
 ## 交接注意
 
 - `.omo/` 目录含规划与审查证据，不要删除
+- 新增质量救援计划：`.omo/plans/game-quality-rescue.md` + `.omo/drafts/game-quality-rescue.md`
 - 宪法骨架已装入，AGENTS.md 为最高规则源
 - 运行 `npx vite` 即可本地试玩
-- 线上版本：https://mckf111.github.io/personal-browser-game/
-- itch.io 待上传：按 docs/publish-itchio.md 步骤，使用 .omo/evidence/task-9-dist.zip
+- 线上版本（原型）：https://mckf111.github.io/personal-browser-game/
+- itch.io 待上传：质量救援通过后再考虑；当前不视为 publish-ready
