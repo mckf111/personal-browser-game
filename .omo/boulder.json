@@ -1,0 +1,14 @@
+{
+  "schema_version": 2,
+  "active_work_id": "game-quality-rescue",
+  "works": {
+    "game-quality-rescue": {
+      "work_id": "game-quality-rescue",
+      "active_plan": ".omo/plans/game-quality-rescue.md",
+      "plan_name": "game-quality-rescue",
+      "session_ids": ["codex:current"],
+      "status": "completed",
+      "worktree_path": null
+    }
+  }
+}

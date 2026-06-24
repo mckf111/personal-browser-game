@@ -1,0 +1,130 @@
+{
+  "screenshots": [
+    "1280-ending.png",
+    "1280-playing.png",
+    "1280-select.png",
+    "1280-title.png",
+    "375-ending.png",
+    "375-playing.png",
+    "375-select.png",
+    "375-title.png",
+    "768-ending.png",
+    "768-playing.png",
+    "768-select.png",
+    "768-title.png"
+  ],
+  "badConsole": [],
+  "finalStates": [
+    {
+      "viewport": "375",
+      "state": "ending",
+      "hint": "按空格或点击重开",
+      "score": "最终得分: 325  最高连击: 10x",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 667,
+        "top": 0,
+        "right": 375,
+        "bottom": 667,
+        "left": 0
+      },
+      "hintBox": {
+        "x": 0,
+        "y": 623,
+        "width": 375,
+        "height": 44,
+        "top": 623,
+        "right": 375,
+        "bottom": 667,
+        "left": 0
+      },
+      "scoreBox": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 54,
+        "top": 0,
+        "right": 375,
+        "bottom": 54,
+        "left": 0
+      }
+    },
+    {
+      "viewport": "768",
+      "state": "ending",
+      "hint": "按空格或点击重开",
+      "score": "最终得分: 325  最高连击: 10x",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 1024,
+        "top": 0,
+        "right": 768,
+        "bottom": 1024,
+        "left": 0
+      },
+      "hintBox": {
+        "x": 0,
+        "y": 980,
+        "width": 768,
+        "height": 44,
+        "top": 980,
+        "right": 768,
+        "bottom": 1024,
+        "left": 0
+      },
+      "scoreBox": {
+        "x": 0,
+        "y": 0,
+        "width": 768,
+        "height": 54,
+        "top": 0,
+        "right": 768,
+        "bottom": 54,
+        "left": 0
+      }
+    },
+    {
+      "viewport": "1280",
+      "state": "ending",
+      "hint": "按空格或点击重开",
+      "score": "最终得分: 325  最高连击: 10x",
+      "canvas": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 720,
+        "top": 0,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "hintBox": {
+        "x": 0,
+        "y": 676,
+        "width": 1280,
+        "height": 44,
+        "top": 676,
+        "right": 1280,
+        "bottom": 720,
+        "left": 0
+      },
+      "scoreBox": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 54,
+        "top": 0,
+        "right": 1280,
+        "bottom": 54,
+        "left": 0
+      }
+    }
+  ],
+  "serverLog": [
+    "  \u001b[32m➜\u001b[39m  \u001b[1mLocal\u001b[22m:   \u001b[36mhttp://127.0.0.1:\u001b[1m4173\u001b[22m/\u001b[39m\n"
+  ]
+}
