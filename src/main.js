@@ -69,6 +69,17 @@ const COLORS = {
   gold: '#ffd700',
   shelf: '#8B7355',
   itemColors: ['#e74c3c', '#3498db', '#f39c12', '#9b59b6', '#1abc9c', '#e67e22'],
+  // DESIGN.md tokens
+  targetWindow: 'rgba(78,205,196,0.25)',
+  targetBorder: '#4ecdc4',
+  targetWindowIntruder: 'rgba(255,107,107,0.25)',
+  targetBorderIntruder: '#ff6b6b',
+  furnitureShadow: 'rgba(0,0,0,0.2)',
+  wallDetail: 'rgba(255,255,255,0.1)',
+  textPrimary: '#ffffff',
+  textSecondary: 'rgba(255,255,255,0.7)',
+  textMuted: 'rgba(255,255,255,0.5)',
+  themeColor: '#1a1a2e',
 };
 
 const GAME_CONFIG = {
@@ -424,45 +435,97 @@ function render() {
 }
 
 function renderTitle(w, h) {
-  // 背景装饰
+  const wallH = h * 0.7;
+  const floorH = h * 0.3;
+  const fontStack = 'system-ui, -apple-system, sans-serif';
+
+  // 房间背景
   ctx.fillStyle = COLORS.wall;
-  ctx.fillRect(0, 0, w, h * 0.7);
+  ctx.fillRect(0, 0, w, wallH);
   ctx.fillStyle = COLORS.floor;
-  ctx.fillRect(0, h * 0.7, w, h * 0.3);
+  ctx.fillRect(0, wallH, w, floorH);
 
-  // 简单的家具轮廓
-  ctx.strokeStyle = 'rgba(255,255,255,0.1)';
-  ctx.lineWidth = 2;
-  // 书架
-  ctx.strokeRect(w * 0.1, h * 0.3, w * 0.15, h * 0.35);
-  // 桌子
-  ctx.fillRect(w * 0.7, h * 0.5, w * 0.2, h * 0.05);
-  ctx.fillRect(w * 0.75, h * 0.55, w * 0.02, h * 0.15);
-  ctx.fillRect(w * 0.83, h * 0.55, w * 0.02, h * 0.15);
+  // 墙壁装饰线
+  ctx.strokeStyle = COLORS.wallDetail;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, wallH * 0.15);
+  ctx.lineTo(w, wallH * 0.15);
+  ctx.stroke();
 
-  ctx.fillStyle = COLORS.white;
-  ctx.font = `bold ${Math.min(48, w * 0.08)}px system-ui, sans-serif`;
+  // 左侧书架（带层板阴影）
+  ctx.fillStyle = COLORS.shelf;
+  const shelfW = w * 0.18;
+  const shelfH = wallH * 0.5;
+  const shelfY = wallH * 0.2;
+  ctx.fillRect(w * 0.08, shelfY, shelfW, shelfH);
+  ctx.fillStyle = COLORS.furnitureShadow;
+  for (let i = 1; i <= 3; i++) {
+    ctx.fillRect(w * 0.08, shelfY + i * (shelfH / 4), shelfW, 3);
+  }
+
+  // 右侧桌子（带桌腿）
+  ctx.fillStyle = COLORS.shelf;
+  const tableW = w * 0.22;
+  const tableY = wallH * 0.6;
+  ctx.fillRect(w * 0.72, tableY, tableW, 6);
+  ctx.fillRect(w * 0.74, tableY + 6, 4, wallH * 0.2);
+  ctx.fillRect(w * 0.72 + tableW - 8, tableY + 6, 4, wallH * 0.2);
+
+  // 主标题
+  ctx.fillStyle = COLORS.textPrimary;
+  ctx.font = `bold ${Math.min(48, w * 0.08)}px ${fontStack}`;
   ctx.textAlign = 'center';
-  ctx.fillText('守序者与闯入者', w / 2, h * 0.35);
+  ctx.fillText('守序者与闯入者', w / 2, wallH * 0.45);
 
-  ctx.font = `${Math.min(18, w * 0.035)}px system-ui, sans-serif`;
-  ctx.fillStyle = 'rgba(255,255,255,0.7)';
-  ctx.fillText('按空格或点击屏幕', w / 2, h * 0.55);
+  // 副标题
+  ctx.fillStyle = COLORS.textSecondary;
+  ctx.font = `${Math.min(18, w * 0.035)}px ${fontStack}`;
+  ctx.fillText('按空格或点击屏幕', w / 2, wallH * 0.65);
 
-  ctx.font = `${Math.min(14, w * 0.028)}px system-ui, sans-serif`;
-  ctx.fillStyle = 'rgba(255,255,255,0.5)';
-  ctx.fillText('一个关于秩序、混乱与理解的单键时机游戏', w / 2, h * 0.62);
-  ctx.fillText('Tips: 听节拍! 连击越高得分越多!', w / 2, h * 0.68);
+  // 底部说明
+  ctx.fillStyle = COLORS.textMuted;
+  ctx.font = `${Math.min(14, w * 0.028)}px ${fontStack}`;
+  ctx.fillText('一个关于秩序、混乱与理解的单键时机游戏', w / 2, wallH + floorH * 0.3);
+  ctx.fillText('Tips: 听节拍! 连击越高得分越多!', w / 2, wallH + floorH * 0.55);
 }
 
 function renderSelect(w, h) {
-  ctx.fillStyle = COLORS.white;
-  ctx.font = `bold ${Math.min(32, w * 0.06)}px system-ui, sans-serif`;
-  ctx.textAlign = 'center';
-  ctx.fillText('选择你的角色', w / 2, h * 0.22);
+  const fontStack = 'system-ui, -apple-system, sans-serif';
+  const wallH = h * 0.65;
+  const floorH = h * 0.35;
 
+  // 房间背景
+  ctx.fillStyle = COLORS.wall;
+  ctx.fillRect(0, 0, w, wallH);
+  ctx.fillStyle = COLORS.floor;
+  ctx.fillRect(0, wallH, w, floorH);
+
+  // 墙壁装饰线
+  ctx.strokeStyle = COLORS.wallDetail;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, wallH * 0.15);
+  ctx.lineTo(w, wallH * 0.15);
+  ctx.stroke();
+
+  // 左侧家具轮廓
+  ctx.strokeStyle = COLORS.wallDetail;
+  ctx.lineWidth = 2;
+  ctx.strokeRect(w * 0.06, wallH * 0.2, w * 0.12, wallH * 0.4);
+
+  // 右侧家具轮廓
+  ctx.strokeRect(w * 0.82, wallH * 0.2, w * 0.12, wallH * 0.4);
+
+  // 标题
+  ctx.fillStyle = COLORS.textPrimary;
+  ctx.font = `bold ${Math.min(32, w * 0.06)}px ${fontStack}`;
+  ctx.textAlign = 'center';
+  ctx.fillText('选择你的角色', w / 2, h * 0.15);
+
+  // 按钮参数
   const cx = w / 2;
-  const cy = h * 0.45;
+  const cy = h * 0.5;
   const btnW = Math.min(220, w * 0.38);
   const btnH = 100;
   const gap = Math.min(30, w * 0.04);
@@ -472,9 +535,9 @@ function renderSelect(w, h) {
   roundRect(ctx, cx - gap / 2 - btnW, cy - btnH / 2, btnW, btnH, 12);
   ctx.fill();
   ctx.fillStyle = COLORS.bg;
-  ctx.font = `bold ${Math.min(22, w * 0.045)}px system-ui, sans-serif`;
+  ctx.font = `bold ${Math.min(22, w * 0.045)}px ${fontStack}`;
   ctx.fillText('守序者', cx - gap / 2 - btnW / 2, cy - 5);
-  ctx.font = `${Math.min(14, w * 0.028)}px system-ui, sans-serif`;
+  ctx.font = `${Math.min(14, w * 0.028)}px ${fontStack}`;
   ctx.fillText('小蟾蜍', cx - gap / 2 - btnW / 2, cy + 18);
 
   // 闯入者按钮
@@ -482,44 +545,55 @@ function renderSelect(w, h) {
   roundRect(ctx, cx + gap / 2, cy - btnH / 2, btnW, btnH, 12);
   ctx.fill();
   ctx.fillStyle = COLORS.bg;
-  ctx.font = `bold ${Math.min(22, w * 0.045)}px system-ui, sans-serif`;
+  ctx.font = `bold ${Math.min(22, w * 0.045)}px ${fontStack}`;
   ctx.fillText('闯入者', cx + gap / 2 + btnW / 2, cy - 5);
-  ctx.font = `${Math.min(14, w * 0.028)}px system-ui, sans-serif`;
+  ctx.font = `${Math.min(14, w * 0.028)}px ${fontStack}`;
   ctx.fillText('候鸟', cx + gap / 2 + btnW / 2, cy + 18);
 
-  // 说明
-  ctx.fillStyle = 'rgba(255,255,255,0.7)';
-  ctx.font = `${Math.min(15, w * 0.03)}px system-ui, sans-serif`;
-  ctx.fillText('守序者：把变乱的东西归位', w / 2, h * 0.68);
-  ctx.fillText('闯入者：别打乱想融入整齐世界', w / 2, h * 0.74);
-  ctx.fillStyle = 'rgba(255,255,255,0.5)';
-  ctx.fillText('核心：听节拍，在正确时机按键', w / 2, h * 0.82);
+  // 说明文字
+  ctx.fillStyle = COLORS.textSecondary;
+  ctx.font = `${Math.min(15, w * 0.03)}px ${fontStack}`;
+  ctx.fillText('守序者：把变乱的东西归位', w / 2, h * 0.72);
+  ctx.fillText('闯入者：别打乱想融入整齐世界', w / 2, h * 0.78);
+  ctx.fillStyle = COLORS.textMuted;
+  ctx.fillText('核心：听节拍，在正确时机按键', w / 2, h * 0.86);
 }
 
 function renderGame(w, h) {
+  const fontStack = 'system-ui, -apple-system, sans-serif';
   const trackY = h * 0.5;
   const trackLeft = w * 0.08;
   const trackRight = w * 0.92;
   const trackLen = trackRight - trackLeft;
+  const isOrder = game.character === 'order';
+  const wallH = h * 0.65;
+  const floorH = h * 0.35;
 
   // 房间背景
   ctx.fillStyle = COLORS.wall;
-  ctx.fillRect(0, 0, w, h * 0.65);
+  ctx.fillRect(0, 0, w, wallH);
   ctx.fillStyle = COLORS.floor;
-  ctx.fillRect(0, h * 0.65, w, h * 0.35);
+  ctx.fillRect(0, wallH, w, floorH);
 
-  // 书架/柜子
+  // 书架/柜子（角色专属位置）
   ctx.fillStyle = COLORS.shelf;
-  const shelfX = game.character === 'order' ? trackRight - w * 0.12 : trackLeft;
-  ctx.fillRect(shelfX, h * 0.25, w * 0.12, h * 0.35);
+  const shelfX = isOrder ? trackRight - w * 0.12 : trackLeft;
+  ctx.fillRect(shelfX, wallH * 0.35, w * 0.12, wallH * 0.55);
   // 书架层板
-  ctx.fillStyle = 'rgba(0,0,0,0.2)';
+  ctx.fillStyle = COLORS.furnitureShadow;
   for (let i = 1; i <= 3; i++) {
-    ctx.fillRect(shelfX, h * 0.25 + i * h * 0.09, w * 0.12, 3);
+    ctx.fillRect(shelfX, wallH * 0.35 + i * (wallH * 0.55 / 4), w * 0.12, 3);
   }
 
+  // 对侧桌子
+  ctx.fillStyle = COLORS.shelf;
+  const tableX = isOrder ? trackLeft : trackRight - w * 0.15;
+  ctx.fillRect(tableX, wallH * 0.7, w * 0.15, 5);
+  ctx.fillRect(tableX + 4, wallH * 0.7 + 5, 3, wallH * 0.2);
+  ctx.fillRect(tableX + w * 0.15 - 7, wallH * 0.7 + 5, 3, wallH * 0.2);
+
   // 轨道线
-  ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+  ctx.strokeStyle = COLORS.wallDetail;
   ctx.lineWidth = 2;
   ctx.setLineDash([8, 8]);
   ctx.beginPath();
@@ -527,6 +601,12 @@ function renderGame(w, h) {
   ctx.lineTo(trackRight, trackY);
   ctx.stroke();
   ctx.setLineDash([]);
+
+  // 角色目标故事文字
+  ctx.fillStyle = COLORS.textMuted;
+  ctx.font = `${Math.min(14, w * 0.028)}px ${fontStack}`;
+  ctx.textAlign = 'center';
+  ctx.fillText(isOrder ? '把东西归位!' : '别打乱! 融入!', w / 2, wallH + floorH * 0.2);
 
   if (!game.currentObject) return;
   const obj = game.currentObject;
@@ -536,16 +616,16 @@ function renderGame(w, h) {
   const targetT = obj.targetT + swayOffset;
   const targetX = trackLeft + targetT * trackLen;
 
-  // 时机窗口
+  // 时机窗口（角色专属颜色）
   const halfPx = obj.halfWidth * trackLen;
-  ctx.fillStyle = COLORS.targetWindow;
+  ctx.fillStyle = isOrder ? COLORS.targetWindow : COLORS.targetWindowIntruder;
   ctx.fillRect(targetX - halfPx, trackY - 28, halfPx * 2, 56);
-  ctx.strokeStyle = COLORS.targetBorder;
+  ctx.strokeStyle = isOrder ? COLORS.targetBorder : COLORS.targetBorderIntruder;
   ctx.lineWidth = 2;
   ctx.strokeRect(targetX - halfPx, trackY - 28, halfPx * 2, 56);
 
   // 目标标记
-  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.fillStyle = COLORS.textSecondary;
   ctx.fillRect(targetX - 1, trackY - 32, 2, 64);
 
   // 节拍提示（目标处闪烁）
@@ -605,14 +685,14 @@ function renderGame(w, h) {
   const barH = 8;
   const barX = w * 0.5 - barW / 2;
   const barY = h * 0.88;
-  ctx.fillStyle = 'rgba(255,255,255,0.15)';
+  ctx.fillStyle = COLORS.wallDetail;
   roundRect(ctx, barX, barY, barW, barH, 4);
   ctx.fill();
-  ctx.fillStyle = game.character === 'order' ? COLORS.order : COLORS.chaos;
+  ctx.fillStyle = isOrder ? COLORS.order : COLORS.chaos;
   roundRect(ctx, barX, barY, barW * (game.objectsDone / GAME_CONFIG.objectsToWin), barH, 4);
   ctx.fill();
-  ctx.fillStyle = 'rgba(255,255,255,0.6)';
-  ctx.font = `12px system-ui, sans-serif`;
+  ctx.fillStyle = COLORS.textSecondary;
+  ctx.font = `12px ${fontStack}`;
   ctx.textAlign = 'center';
   ctx.fillText(`${game.objectsDone} / ${GAME_CONFIG.objectsToWin}`, w / 2, barY + 22);
 }
@@ -648,33 +728,37 @@ function renderItem(x, y, item, color, settled) {
 }
 
 function renderEnding(w, h) {
+  const fontStack = 'system-ui, -apple-system, sans-serif';
   const progress = Math.min(1, game.endingTimer / 240);
-
-  ctx.fillStyle = COLORS.bg;
-  ctx.fillRect(0, 0, w, h);
+  const wallH = h * 0.65;
+  const floorH = h * 0.35;
 
   // 房间背景
   ctx.fillStyle = COLORS.wall;
-  ctx.fillRect(0, 0, w, h * 0.65);
+  ctx.fillRect(0, 0, w, wallH);
   ctx.fillStyle = COLORS.floor;
-  ctx.fillRect(0, h * 0.65, w, h * 0.35);
+  ctx.fillRect(0, wallH, w, floorH);
 
-  // 书架
+  // 书架（带层板阴影）
   ctx.fillStyle = COLORS.shelf;
-  ctx.fillRect(w * 0.75, h * 0.25, w * 0.15, h * 0.3);
+  ctx.fillRect(w * 0.75, wallH * 0.25, w * 0.15, wallH * 0.45);
+  ctx.fillStyle = COLORS.furnitureShadow;
+  for (let i = 1; i <= 3; i++) {
+    ctx.fillRect(w * 0.75, wallH * 0.25 + i * (wallH * 0.45 / 4), w * 0.15, 3);
+  }
 
   if (progress > 0.1) {
     const alpha = Math.min(1, (progress - 0.1) / 0.2);
     ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-    ctx.font = `bold ${Math.min(36, w * 0.07)}px system-ui, sans-serif`;
+    ctx.font = `bold ${Math.min(36, w * 0.07)}px ${fontStack}`;
     ctx.textAlign = 'center';
-    ctx.fillText('他们相遇了', w / 2, h * 0.2);
+    ctx.fillText('他们相遇了', w / 2, wallH * 0.3);
   }
 
   if (progress > 0.25) {
     const alpha = Math.min(1, (progress - 0.25) / 0.25);
     const cx = w / 2;
-    const cy = h * 0.45;
+    const cy = wallH * 0.6;
 
     ctx.globalAlpha = alpha;
 
@@ -706,7 +790,7 @@ function renderEnding(w, h) {
       ctx.stroke();
     }
 
-    // 递东西
+    // 递东西连线
     ctx.strokeStyle = COLORS.gold;
     ctx.lineWidth = 2;
     ctx.beginPath();
@@ -720,27 +804,27 @@ function renderEnding(w, h) {
   if (progress > 0.55) {
     const alpha = Math.min(1, (progress - 0.55) / 0.2);
     ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-    ctx.font = `${Math.min(16, w * 0.032)}px system-ui, sans-serif`;
+    ctx.font = `${Math.min(16, w * 0.032)}px ${fontStack}`;
     ctx.textAlign = 'center';
-    ctx.fillText('蟾蜍递出了尺子，候鸟递出了羽毛', w / 2, h * 0.65);
+    ctx.fillText('蟾蜍递出了尺子，候鸟递出了羽毛', w / 2, wallH + floorH * 0.15);
   }
 
   if (progress > 0.75) {
     const alpha = Math.min(1, (progress - 0.75) / 0.2);
     // 沙发
     ctx.fillStyle = `rgba(139,115,85,${alpha * 0.5})`;
-    ctx.fillRect(w * 0.3, h * 0.7, w * 0.4, 8);
+    ctx.fillRect(w * 0.3, wallH + floorH * 0.4, w * 0.4, 8);
 
     ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-    ctx.font = `italic ${Math.min(18, w * 0.035)}px system-ui, sans-serif`;
-    ctx.fillText('"理解是一种归位"', w / 2, h * 0.78);
+    ctx.font = `italic ${Math.min(18, w * 0.035)}px ${fontStack}`;
+    ctx.fillText('"理解是一种归位"', w / 2, wallH + floorH * 0.55);
   }
 
   if (progress > 0.9) {
-    ctx.fillStyle = 'rgba(255,255,255,0.5)';
-    ctx.font = `14px system-ui, sans-serif`;
-    ctx.fillText(`最终得分: ${game.score}  最高连击: ${game.maxCombo}x`, w / 2, h * 0.88);
-    ctx.fillText('按空格或点击屏幕重开', w / 2, h * 0.93);
+    ctx.fillStyle = COLORS.textMuted;
+    ctx.font = `14px ${fontStack}`;
+    ctx.fillText(`最终得分: ${game.score}  最高连击: ${game.maxCombo}x`, w / 2, wallH + floorH * 0.75);
+    ctx.fillText('按空格或点击屏幕重开', w / 2, wallH + floorH * 0.9);
   }
 }
 
