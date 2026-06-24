@@ -22,6 +22,7 @@
 - GitHub Pages 自动部署：push main 即发布。
 
 ### Changed
+- Canvas 视觉重建：房间层次（墙壁+地板+家具）、角色专属时机窗口颜色、故事文字、DESIGN.md token 绑定。不再使用硬编码裸色值。
 
 ### Fixed
 

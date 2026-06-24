@@ -4,34 +4,40 @@
 
 ## 架构概览
 
-TODO：项目刚起步，架构待 T3 脚手架完成后细化。
-
 核心思路：原生 HTML5 Canvas + 纯 JavaScript（ES2022+），Vite 做构建工具。游戏核心逻辑（时机判定、计分、难度）为纯函数，便于单测。渲染层只读状态，输入层统一为"单键按下"事件。
+
+当前实现阶段，所有代码集中在 `src/main.js` 中（~970 行），未做模块拆分。视觉设计系统见 `DESIGN.md`，所有 Canvas 绘制的颜色、尺寸、字体必须追踪到 DESIGN.md 的具名 token，禁止内联裸色值。
 
 ## 顶层目录职责
 
 ```text
-src/          游戏源代码（核心循环、渲染、输入、音频、状态机）
-assets/       游戏资产（图片、音频、字体等静态资源）
+src/          游戏源代码（核心循环、渲染、输入、音频、状态机）—— 当前全部在 main.js
+assets/       游戏资产（图片、音频、字体等静态资源）—— 当前无外部资产
 public/       静态文件（PWA manifest、图标等，直接复制到 dist）
 dist/         构建产物（Vite 生成，git 忽略）
 docs/         项目文档（状态、架构、ADR、接口、债务）
 specs/        功能规格（active/ 进行中，done/ 已归档）
+.omo/         规划与审查证据（计划、证据、玩测原始数据）
+e2e/          端到端测试（Playwright + 截图 QA）
+scripts/      工具脚本（玩测原始数据验证等）
 ```
 
 ## 核心流程
 
-TODO：待 T4 spec 冻结后补充——开始 → 角色选择 → 单键时机游戏循环 → 结局/重开。
+标题 → 角色选择 → 单键时机游戏循环（开场白 → 按键判定 → 命中/失败反馈 → 帧级休止 → 下一物件）→ 结局/重开。
 
 ## 模块边界
 
-| 模块 / 目录 | 职责 | 可以依赖 | 禁止依赖 |
-|---|---|---|---|
-| src/game/ | 游戏核心逻辑（时机判定、计分、状态机） | src/utils/ | src/render/, src/audio/ |
-| src/render/ | Canvas 渲染（只读状态，不修改） | src/game/（只读） | src/input/（直接读状态即可） |
-| src/input/ | 输入统一（键盘+触摸 → 单键按下事件） | — | src/game/（不直接改状态） |
-| src/audio/ | Web Audio 音效/音乐 | src/game/（读状态触发） | src/render/ |
-| src/utils/ | 纯工具函数（judgeTiming 等） | — | 任何业务模块 |
+当前所有模块代码均在 `src/main.js` 中，逻辑边界如下：
+
+| 逻辑区域 | 职责 | 状态 |
+|---|---|---|
+| 游戏循环（gameLoop） | 帧更新、物体运动、超时判定、粒子/浮动文字生命周期 | `src/main.js` |
+| 关卡生成（generateObject） | 物体属性生成（物品种类、颜色、位置、速度、窗口、摇摆参数） | `src/main.js` |
+| 输入处理（onPress / handleSelectClick） | 键盘/触摸 → 单键按下事件统一入口 | `src/main.js` |
+| 渲染（render / renderTitle / renderSelect / renderGame / renderEnding） | Canvas 绘制，只读状态，不修改状态 | `src/main.js` |
+| 音效（initAudio / playHitSound / playFailSound / playBeat） | Web Audio API 合成音效 | `src/main.js` |
+| 时机判定（judgeTiming） | 纯函数，无副作用 | `src/game/timing.js` |
 
 ## 架构约束
 

@@ -225,14 +225,16 @@ npx vite
 | 文件 | 作用 |
 |---|---|
 | `README.md` | 项目入口、运行方式、当前能力 |
+| `DESIGN.md` | 视觉设计系统契约——配色 token、字体、尺寸、角色剪影、场景层次、动效规则、截图 QA 门禁 |
 | `.vibe-starter-gpt.json` | 宪法版本、安装日期、项目类型 |
 | `docs/project-state.md` | 当前状态、交接摘要、下一步 |
 | `docs/architecture.md` | 架构、目录职责、模块边界 |
 | `docs/interfaces.md` | API、数据结构、模块契约 |
 | `docs/debt.md` | 技术债、临时方案、清理条件 |
+| `docs/art-direction.md` | 视觉与音频母题叙述（以 `DESIGN.md` 为规范源） |
 | `docs/decisions/` | ADR，记录重大决策 |
-| `specs/active/` | 进行中的功能规格 |
-| `specs/done/` | 已完成或取消的规格归档 |
+| `specs/active/single-button-timing.md` | 核心玩法 spec（已冻结） |
+| `specs/active/game-quality-rescue.md` | 质量救援计划 spec（T1-T10 已执行，T9 阻塞中） |
 | `CHANGELOG.md` | 用户可见变化 |
 
 ---
