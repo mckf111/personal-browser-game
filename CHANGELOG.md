@@ -7,6 +7,7 @@
 ## [Unreleased]
 
 ### Added
+- 质量救援计划 T1-T10 执行完毕（除 T9 外部玩测门禁阻塞）：自动构建、测试、截图 QA、红线扫描全部通过。
 - 项目接入 vibe-starter-GPT 项目宪法：AGENTS、spec、ADR、状态交接、架构边界、技术债和质量门禁模板。
 - ADR-0001：选定技术栈（原生 Canvas+JS+Vite+Vitest+Playwright，不引入游戏引擎）。
 - 单键时机核心玩法：选择角色（守序者/闯入者），在正确时机按键归位/融入物品。

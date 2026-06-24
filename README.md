@@ -6,7 +6,7 @@
 
 - 项目类型：Web 浏览器游戏
 - 主要产物：可在线玩的 HTML5 游戏
-- 当前阶段：prototype（灰盒原型阶段）
+- 当前阶段：online prototype, not quality-approved（GitHub Pages 线上原型，质量救援自动门禁通过，外部玩测门禁阻塞）
 - 默认分支：main
 
 更多交接信息见 [docs/project-state.md](docs/project-state.md)。

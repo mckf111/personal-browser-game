@@ -5,9 +5,9 @@
 ## 当前状态
 
 - 项目：守序者与闯入者
-- 阶段：**quality rescue**（GitHub Pages 已上线原型，但未通过质量门禁）
-- 当前目标：执行 `.omo/plans/game-quality-rescue.md` 质量救援计划，修复视觉、叙事、手感和验收标准
-- 最近一次更新：2026-06-23
+- 阶段：**online prototype / quality rescue completed except external playtest gate**（GitHub Pages 已上线原型，质量救援计划 T1-T8 及 T10 自动门禁全部通过，T9 外部真人玩测门禁阻塞，未质量批准）
+- 当前目标：补齐外部真人玩测证据（3 份 raw + 1 份移动端），解锁 T9 后重新认证
+- 最近一次更新：2026-06-24
 - 当前维护者 / 决策人：用户
 - 重要：用户已明确拒绝当前执行质量，项目不再被视为 publish-ready / finished
 
@@ -21,12 +21,14 @@
 - T6 玩测迭代：收到 P0 反馈，迭代 Combo 系统、Web Audio 节拍、视觉意象、失败戏剧化
 - T7 打磨味道：art-direction.md、配色≤4色、触摸友好、粒子动效
 - T8 发布链路：deploy.yml + publish-itchio.md + how-to-test.md
-- T9 publish-ready 包：task-9-dist.zip + release-readme.md
+- T9 外部真人玩测门禁：BLOCKED（证据不足，见 `.omo/evidence/task-9-game-quality-rescue-blocked.md`）
+- T10 最终质量认证：自动门禁全部通过，玩测门禁阻塞，项目状态保持诚实
+- 质量救援计划执行完毕（除 T9 解锁待办）
 
 ## 验证状态
 
 - 最快可信验证：`npx vite build; if ($?) { npx vitest run }` ✅
-- 最近验证结果：T9 全部通过（build + vitest + playwright）
+- 最近验证结果：T10 全部通过（build + vitest 16/16 + playwright 44/44 + red-line scans PASS）
 - 构建产物：dist/index.html + manifest.json + assets/index-xxx.js
 - 路径扫描：无绝对路径引用 ✅
 
@@ -38,10 +40,12 @@
 
 ## 待办
 
-- 执行质量救援计划 `.omo/plans/game-quality-rescue.md`（已获批，等待执行）
-  - 包含：状态修正、DESIGN.md、确定性 testMode、截图 QA、可读角色/故事 Canvas、编排节拍、PWA 身份清理、真人玩测门禁、最终质量认证
-- itch.io 手动上传（质量救援通过后再考虑；当前不视为 publish-ready）
-  - publish-ready 包：.omo/evidence/task-9-dist.zip（旧包，救援后需重新打包）
+- 补齐 T9 外部真人玩测证据（阻塞中）
+  - 需 3 份外部测试者 raw 反馈 + 1 份移动端
+  - 放入 `.omo/evidence/game-quality-rescue-playtest-raw/`
+  - 运行 `node scripts/validate-playtest-raw.mjs .omo/evidence/game-quality-rescue-playtest-raw` 确认 PASS
+  - 解锁后重新执行 T10 最终认证
+- itch.io 上传：仅在质量通过后才考虑；当前不视为 publish-ready / quality-approved
 
 ## 技术栈
 

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">守序者与闯入者图标</title>
+  <desc id="desc">几何小蟾蜍与候鸟标记</desc>
+  <rect width="64" height="64" rx="14" fill="#1a1a2e"/>
+  <circle cx="25" cy="34" r="15" fill="#4ecdc4"/>
+  <circle cx="19" cy="26" r="5" fill="#ffffff"/>
+  <circle cx="31" cy="26" r="5" fill="#ffffff"/>
+  <path d="M16 39 Q25 47 34 39" fill="none" stroke="#1a1a2e" stroke-width="3" stroke-linecap="round"/>
+  <ellipse cx="43" cy="27" rx="12" ry="8" fill="#ff6b6b" transform="rotate(-20 43 27)"/>
+  <path d="M52 22 L62 26 L53 31 Z" fill="#ffd700"/>
+  <path d="M39 31 L32 41" stroke="#ff6b6b" stroke-width="3" stroke-linecap="round"/>
+</svg>
